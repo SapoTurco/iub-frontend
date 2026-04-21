@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="../img/logo.svg" />
+  <title>IUB HealthCare</title>
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body>
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icono"></div>
+      <span><span class="logo-texto">IUB</span> HealthCare</span>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <script src="../js/sidebar.js"></script>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="logout-icon-wrap">
+        <img src="../img/logout.svg" alt="" class="logout-default" />
+        <img src="../img/logout_hover.svg" alt="" class="logout-hover" />
+      </div>
+      Cerrar sesión
+    </div>
+  </aside>
+
+  <!-- ====== CONTENIDO PRINCIPAL ====== -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-titulo">
+        <h1>Sistema de Gestión de Camas Hospitalarias</h1>
+      </div>
+      <div class="topbar-usuario">
+        <img src="../img/usuario.svg" alt="Usuario" class="nav-icon" />
+        <span id="topbar-nombre"></span>
+      </div>
+    </header>
+
+    <!-- ====== TARJETAS KPI ====== -->
+    <section class="kpi-grid">
+
+      <!-- Estado de Camas — donut dinámico -->
+      <div class="card kpi-camas">
+        <h2 class="card-titulo">Estado total de camas</h2>
+        <div class="camas-contenido">
+          <div class="donut-wrap">
+            <svg viewBox="0 0 100 100" class="donut">
+              <circle cx="50" cy="50" r="38" fill="none" stroke="#eee" stroke-width="12"/>
+              <circle id="donut-ocupadas" cx="50" cy="50" r="38" fill="none" stroke="#2c6eb5" stroke-width="12"
+                stroke-dasharray="0 239" stroke-dashoffset="0" stroke-linecap="round"/>
+              <circle id="donut-disponibles" cx="50" cy="50" r="38" fill="none" stroke="#00b4a0" stroke-width="12"
+                stroke-dasharray="0 239" stroke-dashoffset="0" stroke-linecap="round"/>
+              <circle id="donut-mantenimiento" cx="50" cy="50" r="38" fill="none" stroke="#f0c040" stroke-width="12"
+                stroke-dasharray="0 239" stroke-dashoffset="0" stroke-linecap="round"/>
+            </svg>
+            <div class="donut-centro">
+              <span class="donut-num" id="donut-total">—</span>
+              <span class="donut-sub" id="donut-sub">Total</span>
+            </div>
+          </div>
+          <ul class="camas-leyenda">
+            <li><span class="dot azul"></span> <b id="pct-ocupadas">—</b> Ocupadas <em id="num-ocupadas">—</em></li>
+            <li><span class="dot verde"></span> <b id="pct-disponibles">—</b> Disponibles <em id="num-disponibles">—</em></li>
+            <li><span class="dot amarillo"></span> <b id="pct-mantenimiento">—</b> Mantenimiento <em id="num-mantenimiento">—</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Pacientes Hoy -->
+      <div class="card kpi-pacientes">
+        <h2 class="card-titulo">Pacientes hoy</h2>
+        <div class="pacientes-grid">
+          <div class="paciente-box ingreso">
+            <span class="paciente-label">Ingresos</span>
+            <span class="paciente-num" id="num-ingresos">—</span>
+          </div>
+          <div class="paciente-box alta">
+            <span class="paciente-label">Altas</span>
+            <span class="paciente-num" id="num-altas">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Camas UCI -->
+      <div class="card kpi-uci">
+        <h2 class="card-titulo">Camas UCI <small>(Área Crítica)</small></h2>
+        <div class="uci-wrap">
+          <svg viewBox="0 0 120 70" class="medidor">
+            <path d="M10 60 A50 50 0 0 1 110 60" fill="none" stroke="#eee" stroke-width="12" stroke-linecap="round"/>
+            <path id="medidor-arco" d="M10 60 A50 50 0 0 1 110 60" fill="none" stroke="#e05252" stroke-width="12"
+              stroke-dasharray="0 157" stroke-linecap="round"/>
+          </svg>
+          <div class="uci-centro">
+            <span class="uci-num" id="uci-num">— <small id="uci-total">/ —</small></span>
+            <span class="uci-label">Ocupadas</span>
+            <span class="uci-alerta" id="uci-alerta" style="display:none;">⚠ Alth Alert</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====== FILA INFERIOR ====== -->
+    <section class="bottom-grid">
+
+      <!-- Mapa de Camas -->
+      <div class="card mapa-card">
+        <div class="mapa-header">
+          <h2 class="card-titulo">Visualización en tiempo real <span class="punto-rojo"></span></h2>
+        </div>
+
+        <div class="mapa-contenedor">
+          <div class="zona">
+            <div class="zona-titulo">Área General</div>
+            <div class="camas-grid" id="zona-general"></div>
+          </div>
+          <div class="zona zona-uci">
+            <div class="zona-titulo">UCI</div>
+            <div class="camas-grid" id="zona-uci"></div>
+          </div>
+          <div class="zona zona-aislamiento">
+            <div class="zona-titulo">Aislamiento</div>
+            <div class="camas-grid" id="zona-aislamiento"></div>
+          </div>
+          <div class="zona zona-quirofano">
+            <div class="zona-titulo">Quirofano</div>
+            <div class="camas-grid" id="zona-quirofano"></div>
+          </div>
+          <div class="estados">
+            <div class="estados-titulo">Estado</div>
+            <div class="estados-item"><span class="cama-mini disponible"></span> Disponible</div>
+            <div class="estados-item"><span class="cama-mini ocupada"></span> Ocupada</div>
+            <div class="estados-item"><span class="cama-mini mantenimiento"></span> Mantenimiento</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Últimos Movimientos -->
+      <div class="card movimientos-card">
+        <h2 class="card-titulo">Últimos movimientos</h2>
+        <table class="tabla-movimientos">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cam ID</th>
+              <th>Acción</th>
+              <th>Hora</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-movimientos"></tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="pie">
+      <span>Barranquilla, Colombia — 2026</span>
+      <span>Desarrollado por: <a href="#">V. Martínez, F. Garrido</a></span>
+    </footer>
+
+  </main>
+
+  <!-- ====== SCRIPTS ====== -->
+  <script src="../js/database.js"></script>
+  <script src="../js/dashboard.js"></script>
+
+</body>
+</html>

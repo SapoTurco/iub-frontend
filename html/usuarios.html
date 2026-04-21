@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="../img/logo.svg" />
+  <title>IUB HealthCare</title>
+
+  <!-- CSS externos -->
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/pacientes.css" />
+  <link rel="stylesheet" href="../css/usuarios.css" /> <!-- nuevo -->
+</head>
+<body>
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icono"></div>
+      <span><span class="logo-texto">IUB</span> HealthCare</span>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <!-- generado por JS según rol -->
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="logout-icon-wrap">
+        <img src="../img/logout.svg" alt="" class="logout-default" />
+        <img src="../img/logout_hover.svg" alt="" class="logout-hover" />
+      </div>
+      Cerrar sesión
+    </div>
+  </aside>
+
+  <!-- ====== CONTENIDO PRINCIPAL ====== -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-titulo">
+        <h1>Gestión de Usuarios</h1>
+      </div>
+      <div class="topbar-usuario">
+        <img src="../img/usuario.svg" alt="Usuario" class="nav-icon" />
+        <span id="topbar-nombre"></span>
+      </div>
+    </header>
+
+    <div id="contenido-principal" class="pacientes-page">
+      <!-- llenado por JS -->
+    </div>
+
+    <footer class="pie">
+      <span>Barranquilla, Colombia — 2026</span>
+      <span>Desarrollado por: <a href="#">V. Martínez, F. Garrido</a></span>
+    </footer>
+
+  </main>
+
+  <!-- ====== MODAL ====== -->
+  <div id="modal-overlay" class="modal-overlay oculto">
+    <div class="modal-caja">
+      <div class="modal-cabecera">
+        <span id="modal-titulo">Acción</span>
+        <button id="btn-cerrar-modal" class="modal-btn-cerrar">✕</button>
+      </div>
+      <div id="modal-cuerpo"></div>
+      <div class="modal-pie">
+        <button id="btn-cancelar-modal" class="modal-btn-cancelar">Cancelar</button>
+        <button id="btn-confirmar" class="modal-btn-confirmar">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/database.js"></script>
+  <script src="../js/sidebar.js"></script>
+  <script src="../js/usuarios.js"></script>
+
+</body>
+</html>

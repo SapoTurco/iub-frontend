@@ -1,0 +1,222 @@
+/* ============================================================
+   LOGIN.CSS — Estilos de la pantalla de inicio de sesión
+
+   La pantalla tiene dos paneles lado a lado:
+   - Panel izquierdo: bienvenida con círculos decorativos
+   - Panel derecho: formulario de login
+   ============================================================ */
+
+
+/* ============================================================
+   RESET Y BASE
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo con gradiente azul-verde, centra la tarjeta */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a3a6e 0%, #0f7b6c 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+/* ============================================================
+   TARJETA — Contenedor principal de los dos paneles
+   ============================================================ */
+.tarjeta {
+    display: flex;
+    width: 750px;
+    min-height: 430px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ============================================================
+   PANEL IZQUIERDO — Bienvenida
+   ============================================================ */
+.panel-izquierdo {
+    flex: 1;
+    background: linear-gradient(160deg, #ffffff 40%, #a8ddd4 100%);
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Círculos decorativos de fondo */
+.circulos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.circulo {
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 180, 160, 0.3);
+}
+
+/* Tamaños y posiciones de cada círculo */
+.c1 { width: 80px;  height: 80px;  top: -20px;    left: -20px; }
+.c2 { width: 40px;  height: 40px;  top: 30px;     left: 60px;  border-color: #f0c070; }
+.c3 { width: 120px; height: 120px; bottom: -30px; left: -30px; background-color: rgba(0, 180, 160, 0.12); border: none; }
+
+/* Texto del panel izquierdo */
+.panel-izquierdo h2 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    z-index: 1;
+}
+
+.panel-izquierdo p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    z-index: 1;
+    max-width: 180px;
+}
+
+
+/* ============================================================
+   PANEL DERECHO — Formulario de login
+   ============================================================ */
+.panel-derecho {
+    flex: 1;
+    background-color: white;
+    padding: 40px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Encabezado con el logo y el nombre del sistema */
+.encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+/* Icono del logo */
+.logo-icono img {
+    width: 36px;
+    height: 36px;
+}
+
+/* Nombre del sistema */
+.logo-nombre {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.2;
+}
+
+/* La parte "IUB" en verde */
+.logo-texto {
+    color: #00b4a0;
+    font-weight: 900;
+    font-size: 22px;
+}
+
+
+/* ============================================================
+   FORMULARIO
+   ============================================================ */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Cada campo del formulario */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo label {
+    font-size: 13px;
+    color: #444;
+    font-weight: bold;
+}
+
+.campo input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+/* Borde verde al hacer clic en el campo */
+.campo input:focus {
+    border-color: #00b4a0;
+}
+
+/* Mensaje de error — el JS lo muestra si la clave es incorrecta */
+.error-msg {
+    font-size: 11px;
+    color: #e05252;
+    display: none;
+}
+
+/* Botón de ingresar */
+.btn-login {
+    background-color: #4a90d9;
+    color: white;
+    padding: 11px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn-login:hover {
+    background-color: #357abd;
+}
+
+/* Botón deshabilitado mientras verifica */
+.btn-login:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   RESPONSIVE — Celular
+   En pantallas pequeñas los paneles se apilan uno sobre otro.
+   ============================================================ */
+@media (max-width: 600px) {
+    .tarjeta {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .panel-izquierdo {
+        padding: 25px;
+        min-height: 150px;
+    }
+}

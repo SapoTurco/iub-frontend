@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="../img/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IUB HealthCare</title>
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+<body>
+
+  <div class="tarjeta">
+
+    <!-- Panel izquierdo -->
+    <div class="panel-izquierdo">
+      <div class="circulos">
+        <div class="circulo c1"></div>
+        <div class="circulo c2"></div>
+        <div class="circulo c3"></div>
+      </div>
+      <h2>¡Hola! <span>👋</span></h2>
+      <p>Por favor ingrese sus datos para continuar</p>
+    </div>
+
+    <!-- Panel derecho -->
+    <div class="panel-derecho">
+
+      <div class="encabezado">
+        <div class="logo-icono">
+          <img src="../img/logo.svg" alt="IUB HealthCare" />
+        </div>
+        <div class="logo-nombre">
+          <span class="logo-texto">IUB</span> HealthCare
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <form class="formulario" id="formLogin" autocomplete="off">
+
+        <div class="campo">
+          <label for="usuario">Usuario o Correo</label>
+          <input 
+            type="text" 
+            id="usuario" 
+            name="usuario"
+            placeholder="ejemplo@gmail.com"
+            required
+            autocomplete="username"
+          />
+        </div>
+
+        <div class="campo">
+          <label for="contrasena">Contraseña</label>
+          <input 
+            type="password" 
+            id="contrasena" 
+            name="clave"
+            placeholder="••••••••"
+            required
+            autocomplete="current-password"
+          />
+          <span class="error-msg"></span>
+        </div>
+
+        <button type="submit" class="btn-login">Ingresar</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script src="../js/login.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,398 @@
+/* ============================================================
+   PACIENTES.CSS — Estilos exclusivos de la página de pacientes
+   Complementa app.css (que debe cargarse primero).
+   ============================================================ */
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+.pacientes-page {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+
+/* ============================================================
+   CABECERA — Título + buscador + botón
+   ============================================================ */
+.pac-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pac-titulo {
+  font-size: 15px;
+  font-weight: bold;
+  color: #1a3a6e;
+}
+
+.pac-controles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pac-buscador {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pac-buscador-icon {
+  position: absolute;
+  left: 12px;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.pac-buscador input {
+  padding: 8px 14px 8px 34px;
+  border: 1.5px solid #dde3ec;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #333;
+  outline: none;
+  width: 280px;
+  transition: border-color 0.2s;
+}
+
+.pac-buscador input:focus {
+  border-color: #2c6eb5;
+}
+
+.btn-nuevo-pac {
+  padding: 8px 18px;
+  background: #2c6eb5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.btn-nuevo-pac:hover { opacity: 0.85; }
+
+
+/* ============================================================
+   TABLA DE PACIENTES
+   ============================================================ */
+.pac-tabla-wrap {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.pac-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.pac-tabla thead tr {
+  background: #f7f9fc;
+  border-bottom: 2px solid #eef2f8;
+}
+
+.pac-tabla th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 800;
+  color: #888;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.pac-tabla tbody tr {
+  border-bottom: 1px solid #f0f4f8;
+  transition: background 0.15s;
+}
+
+.pac-tabla tbody tr:last-child {
+  border-bottom: none;
+}
+
+.pac-tabla tbody tr:hover {
+  background: #f7fbff;
+}
+
+.pac-tabla td {
+  padding: 13px 16px;
+  color: #333;
+  vertical-align: middle;
+}
+
+.pac-cargando {
+  text-align: center;
+  color: #aaa;
+  padding: 40px !important;
+  font-size: 14px;
+}
+
+/* Nombre y apellido */
+.pac-nombre-completo {
+  font-weight: 700;
+  color: #1a3a6e;
+}
+
+.pac-doc {
+  font-size: 12px;
+  color: #888;
+  font-family: monospace;
+}
+
+/* Badge de estado de cama */
+.badge-cama {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.badge-cama.ocupado     { background: #fee2e2; color: #991b1b; }
+.badge-cama.disponible  { background: #d1fae5; color: #065f46; }
+.badge-cama.sin-cama    { background: #f0f4f8; color: #888; }
+
+/* Botón acción ver detalle */
+.btn-ver-pac {
+  padding: 5px 14px;
+  border: 1.5px solid #2c6eb5;
+  border-radius: 20px;
+  background: white;
+  color: #2c6eb5;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.btn-ver-pac:hover {
+  background: #2c6eb5;
+  color: white;
+}
+
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.modal-overlay.oculto {
+  display: none;
+}
+
+.modal-caja {
+  background: white;
+  border-radius: 14px;
+  width: 440px;
+  max-width: 95vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+.modal-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #1a3a6e;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.modal-btn-cerrar {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-btn-cerrar:hover { color: white; }
+
+#modal-cuerpo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 14px;
+  color: #333;
+}
+
+#modal-cuerpo label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-bottom: 4px;
+}
+
+#modal-cuerpo input,
+#modal-cuerpo textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+#modal-cuerpo input:focus,
+#modal-cuerpo textarea:focus {
+  border-color: #2c6eb5;
+}
+
+.modal-pie {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #f0f4f8;
+}
+
+.modal-btn-cancelar {
+  padding: 9px 20px;
+  border: 1.5px solid #dde3ec;
+  border-radius: 20px;
+  background: white;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.18s;
+}
+
+.modal-btn-cancelar:hover {
+  border-color: #e05252;
+  color: #e05252;
+}
+
+.modal-btn-confirmar {
+  padding: 9px 22px;
+  background: #2c6eb5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.modal-btn-confirmar:hover { opacity: 0.85; }
+
+.modal-error {
+  font-size: 12px;
+  color: #e05252;
+  font-weight: bold;
+  display: none;
+  margin-top: -6px;
+}
+
+/* Detalle de paciente en modal */
+.pac-detalle-card {
+  background: #f7f9fc;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pac-detalle-fila {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.pac-detalle-fila span:first-child {
+  color: #888;
+  font-weight: 600;
+}
+
+.pac-detalle-fila span:last-child {
+  color: #1a3a6e;
+  font-weight: 700;
+  text-align: right;
+}
+
+.pac-detalle-diagnostico {
+  background: white;
+  border: 1px solid #eef2f8;
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  margin-top: 4px;
+}
+
+.pac-historial-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.pac-historial-item.ingreso { background: #f0fdf8; }
+.pac-historial-item.alta    { background: #fff5f5; }
+
+.pac-historial-tipo {
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pac-historial-item.ingreso .pac-historial-tipo { background: #d1fae5; color: #065f46; }
+.pac-historial-item.alta    .pac-historial-tipo { background: #fee2e2; color: #991b1b; }
+
+.pac-historial-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pac-historial-cama  { font-weight: 600; color: #1a3a6e; }
+.pac-historial-fecha { font-size: 11px; color: #aaa; }
+
+.pac-sin-historial {
+  text-align: center;
+  color: #bbb;
+  font-size: 13px;
+  padding: 12px 0;
+}

@@ -1,0 +1,66 @@
+/* ===== BADGES DE ROL ===== */
+.badge-rol {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.badge-ADMIN      { background: #dbeafe; color: #1d4ed8; }
+.badge-ENFERMERIA { background: #d1fae5; color: #065f46; }
+.badge-MEDICO     { background: #fef9c3; color: #92400e; }
+
+/* ===== BOTONES DE ACCIONES ===== */
+/* Editar — igual al "Ver detalle" de pacientes */
+.pac-btn-ver {
+  padding: 5px 14px;
+  border: 1.5px solid #2c6eb5;
+  border-radius: 20px;
+  background: white;
+  color: #2c6eb5;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.pac-btn-ver:hover {
+  background: #2c6eb5;
+  color: white;
+}
+
+/* Eliminar — mismo estilo pero en rojo */
+.pac-btn-eliminar {
+  padding: 5px 14px;
+  border: 1.5px solid #e05252;
+  border-radius: 20px;
+  background: white;
+  color: #e05252;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.pac-btn-eliminar:hover {
+  background: #e05252;
+  color: white;
+}
+
+/* ===== ACCESO DENEGADO ===== */
+.acceso-denegado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 12px;
+  color: #888;
+}
+
+.acceso-denegado i    { font-size: 3rem; color: #e05252; }
+.acceso-denegado h2   { margin: 0; font-size: 1.3rem; }
+.acceso-denegado p    { margin: 0; font-size: 0.95rem; }

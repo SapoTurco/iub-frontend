@@ -1,0 +1,621 @@
+/* ============================================================
+   CAMAS.CSS — Estilos exclusivos de la página de gestión de camas
+   Complementa app.css (que debe cargarse primero).
+   ============================================================ */
+
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+.camas-page {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+
+/* ============================================================
+   CABECERA — Título + filtros + botón nueva cama
+   ============================================================ */
+.camas-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.camas-titulo {
+  font-size: 15px;
+  font-weight: bold;
+  color: #1a3a6e;
+}
+
+.camas-controles {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   BOTONES DE FILTRO
+   ============================================================ */
+.filtros {
+  display: flex;
+  gap: 6px;
+}
+
+.filtro {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #dde3ec;
+  background: white;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.18s;
+}
+
+.filtro:hover {
+  border-color: #2c6eb5;
+  color: #2c6eb5;
+}
+
+.filtro.activo {
+  background: #1a3a6e;
+  border-color: #1a3a6e;
+  color: white;
+  font-weight: bold;
+}
+
+
+/* ============================================================
+   BOTÓN NUEVA CAMA
+   ============================================================ */
+.btn-nueva-cama {
+  padding: 8px 18px;
+  background: #2c6eb5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.btn-nueva-cama:hover { opacity: 0.85; }
+
+
+/* ============================================================
+   SECCIÓN DE ZONA
+   ============================================================ */
+.zona-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.zona-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.zona-nombre {
+  font-size: 12px;
+  font-weight: 800;
+  color: #222;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.zona-contador {
+  font-size: 11px;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.zona-tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+
+/* ============================================================
+   TARJETA INDIVIDUAL DE CAMA
+   ============================================================ */
+.tarjeta-cama {
+  width: 148px;
+  border-radius: 10px;
+  padding: 14px 16px 12px;
+  border: 1.5px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tarjeta-cama:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.tarjeta-cama.disponible    { background: #f0fdf8; border-color: #6ee7c7; }
+.tarjeta-cama.ocupada       { background: #fff5f5; border-color: #fca5a5; }
+.tarjeta-cama.mantenimiento { background: #fffbea; border-color: #fde68a; }
+
+.tarjeta-codigo {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a3a6e;
+}
+
+.tarjeta-ubicacion {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.tarjeta-estado-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.tarjeta-cama.disponible    .tarjeta-estado-badge { background: #d1fae5; color: #065f46; }
+.tarjeta-cama.ocupada       .tarjeta-estado-badge { background: #fee2e2; color: #991b1b; }
+.tarjeta-cama.mantenimiento .tarjeta-estado-badge { background: #fef3c7; color: #92400e; }
+
+.tarjeta-paciente {
+  font-size: 12px;
+  color: #444;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  transition: opacity 0.2s;
+}
+
+.modal-overlay.oculto {
+  display: none;
+}
+
+.modal-caja {
+  background: white;
+  border-radius: 14px;
+  width: 420px;
+  max-width: 95vw;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+.modal-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #1a3a6e;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.modal-btn-cerrar {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-btn-cerrar:hover { color: white; }
+
+#modal-cuerpo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 14px;
+  color: #333;
+}
+
+#modal-cuerpo label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-bottom: 4px;
+}
+
+#modal-cuerpo input,
+#modal-cuerpo select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#modal-cuerpo input:focus,
+#modal-cuerpo select:focus {
+  border-color: #2c6eb5;
+}
+
+.modal-pie {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid #f0f4f8;
+}
+
+.modal-btn-cancelar {
+  padding: 9px 20px;
+  border: 1.5px solid #dde3ec;
+  border-radius: 20px;
+  background: white;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.18s;
+}
+
+.modal-btn-cancelar:hover {
+  border-color: #e05252;
+  color: #e05252;
+}
+
+.modal-btn-confirmar {
+  padding: 9px 22px;
+  background: #2c6eb5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.modal-btn-confirmar:hover { opacity: 0.85; }
+
+/* Mensaje de error dentro del modal */
+.modal-error {
+  font-size: 12px;
+  color: #e05252;
+  font-weight: bold;
+  display: none;
+  margin-top: -6px;
+}
+/* ============================================================
+   MODAL — Estilos de asignación de paciente y alta
+   ============================================================ */
+
+/* Info de cama en modal asignar */
+.modal-info-cama {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f0f4f8;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.modal-cama-icon { font-size: 28px; }
+
+.modal-cama-codigo {
+  font-size: 16px;
+  font-weight: 900;
+  color: #1a3a6e;
+}
+
+.modal-cama-zona {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.badge-disponible {
+  margin-left: auto;
+  background: #d1fae5;
+  color: #065f46;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Confirmación de alta */
+.modal-alta-confirmacion {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: #fff5f5;
+  border: 1.5px solid #fca5a5;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.modal-alta-icono { font-size: 32px; }
+
+.modal-alta-texto p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.modal-paciente-info {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.6;
+  background: white;
+  border-radius: 7px;
+  padding: 8px 12px;
+  border: 1px solid #f0f4f8;
+}
+
+.modal-cama-detalle {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  color: #555;
+  background: #f7f9fc;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.modal-advertencia {
+  font-size: 12px;
+  color: #92400e;
+  background: #fef3c7;
+  padding: 8px 12px;
+  border-radius: 7px;
+  margin-top: -4px;
+}
+
+/* Botón de alta en rojo */
+.modal-btn-alta {
+  background: #e05252 !important;
+}
+
+.modal-btn-alta:hover { opacity: 0.85; }
+
+/* Botón mantenimiento en modal de asignar */
+.modal-btn-mantenimiento {
+  padding: 9px 18px;
+  background: #f0c040;
+  color: #7a5c00;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: auto;
+  transition: opacity 0.2s;
+}
+
+.modal-btn-mantenimiento:hover { opacity: 0.85; }
+
+/* Botón finalizar mantenimiento en modal */
+.modal-btn-mantenimiento-fin {
+  background: #f0c040 !important;
+  color: #7a5c00 !important;
+}
+
+.modal-btn-mantenimiento-fin:hover { opacity: 0.85; }
+/* ============================================================
+   BUSCADOR DE PACIENTES — Modal asignar
+   ============================================================ */
+.buscador-paciente-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.buscador-paciente-wrap input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #dde3ec;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: white;
+}
+
+.buscador-paciente-wrap input:focus {
+  border-color: #2c6eb5;
+  box-shadow: 0 0 0 3px rgba(44,110,181,0.1);
+}
+
+/* Lista debajo del input — flujo normal, no absoluta */
+.lista-pacientes {
+  max-height: 190px;
+  overflow-y: auto;
+  background: white;
+  border: 1.5px solid #dde3ec;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.lista-paciente-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f4f8;
+  transition: background 0.15s;
+}
+
+.lista-paciente-item:last-child { border-bottom: none; }
+.lista-paciente-item:hover      { background: #f7f9fc; }
+.lista-paciente-item.activo     { background: #e8f4fe; }
+
+/* Avatar con iniciales */
+.lpi-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #1a3a6e;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lpi-avatar-sm {
+  width: 28px; height: 28px;
+  font-size: 11px;
+}
+
+.lpi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lpi-nombre {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a3a6e;
+}
+
+.lpi-sub {
+  font-size: 11px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lpi-check {
+  width: 20px; height: 20px;
+  background: #00b4a0;
+  border-radius: 50%;
+  color: white;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lista-paciente-vacio {
+  padding: 16px;
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+}
+
+/* Chip paciente elegido */
+.paciente-elegido {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #e8f4fe;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.oculto-elegido { display: none !important; }
+
+.elegido-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  font-size: 13px;
+  color: #1a3a6e;
+  font-weight: bold;
+}
+
+.elegido-info span {
+  font-size: 11px;
+  color: #666;
+  font-weight: normal;
+}
+
+.elegido-clear {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.elegido-clear:hover { background: #fee2e2; color: #e05252; }
+
+/* Botón mantenimiento */
+.modal-btn-mantenimiento {
+  padding: 9px 18px;
+  background: #f0c040;
+  color: #7a5c00;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: auto;
+  transition: opacity 0.2s;
+}
+
+.modal-btn-mantenimiento:hover { opacity: 0.85; }
+
+/* Botón finalizar mantenimiento */
+.modal-btn-mantenimiento-fin {
+  background: #f0c040 !important;
+  color: #7a5c00 !important;
+}
+
+.modal-btn-mantenimiento-fin:hover { opacity: 0.85; }
