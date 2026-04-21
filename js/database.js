@@ -4,7 +4,7 @@
    y utilidades compartidas por todas las páginas.
    ============================================================ */
 
-const API = "http://localhost:8000";
+const API = "https://iub-backend-api.onrender.com";
 
 /**
  * Hace una petición autenticada a la API.
