@@ -64,3 +64,52 @@
 .acceso-denegado i    { font-size: 3rem; color: #e05252; }
 .acceso-denegado h2   { margin: 0; font-size: 1.3rem; }
 .acceso-denegado p    { margin: 0; font-size: 0.95rem; }
+
+/* ============================================================
+   RESPONSIVE — Usuarios
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Cabecera y controles: hereda de pacientes, aplica mismas reglas */
+  .pac-cabecera {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+
+  .pac-controles {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .pac-buscador { width: 100%; }
+  .pac-buscador input { width: 100%; }
+
+  .btn-nuevo-pac {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* Tabla con scroll */
+  .pac-tabla-wrap { overflow-x: auto; }
+  .pac-tabla { min-width: 520px; }
+
+  .pac-tabla th,
+  .pac-tabla td {
+    padding: 10px 12px;
+  }
+
+  /* Botones de acción en columna si es muy pequeño */
+  .pac-btn-ver,
+  .pac-btn-eliminar {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  /* Acceso denegado */
+  .acceso-denegado { height: 40vh; }
+  .acceso-denegado i { font-size: 2rem; }
+  .acceso-denegado h2 { font-size: 1.1rem; }
+}

@@ -41,3 +41,45 @@
       </a>`;
   }).join("");
 })();
+
+/* ============================================================
+   SIDEBAR TOGGLE — Responsivo (menú hamburguesa)
+   ============================================================ */
+(function sidebarToggle() {
+  const toggle   = document.getElementById("menu-toggle");
+  const sidebar  = document.querySelector(".sidebar");
+  const overlay  = document.getElementById("sidebar-overlay");
+
+  if (!toggle || !sidebar || !overlay) return;
+
+  function abrirSidebar() {
+    sidebar.classList.add("abierto");
+    overlay.classList.add("activo");
+    toggle.classList.add("abierto");
+  }
+
+  function cerrarSidebar() {
+    sidebar.classList.remove("abierto");
+    overlay.classList.remove("activo");
+    toggle.classList.remove("abierto");
+  }
+
+  toggle.addEventListener("click", function () {
+    if (sidebar.classList.contains("abierto")) {
+      cerrarSidebar();
+    } else {
+      abrirSidebar();
+    }
+  });
+
+  overlay.addEventListener("click", cerrarSidebar);
+
+  // Cerrar sidebar al navegar (click en enlace)
+  sidebar.querySelectorAll(".nav-item").forEach(function (link) {
+    link.addEventListener("click", cerrarSidebar);
+  });
+
+  // También cerrar el sidebar al hacer click en "Cerrar sesión"
+  const footer = document.querySelector(".sidebar-footer");
+  if (footer) footer.addEventListener("click", cerrarSidebar);
+})();

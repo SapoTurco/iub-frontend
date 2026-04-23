@@ -396,3 +396,76 @@
   font-size: 13px;
   padding: 12px 0;
 }
+
+
+/* ============================================================
+   RESPONSIVE — Pacientes
+   ============================================================ */
+@media (max-width: 768px) {
+  .pacientes-page {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .pac-cabecera {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+
+  .pac-controles {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .pac-buscador {
+    width: 100%;
+  }
+
+  .pac-buscador input {
+    width: 100%;
+  }
+
+  .btn-nuevo-pac {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* Tabla con scroll horizontal */
+  .pac-tabla-wrap {
+    overflow-x: auto;
+  }
+
+  .pac-tabla {
+    min-width: 560px;
+  }
+
+  .pac-tabla th,
+  .pac-tabla td {
+    padding: 10px 12px;
+  }
+
+  .modal-caja {
+    width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  #modal-cuerpo {
+    max-height: 60vh;
+  }
+
+  .modal-pie {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .modal-btn-cancelar,
+  .modal-btn-confirmar {
+    flex: 1;
+    text-align: center;
+  }
+}

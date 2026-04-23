@@ -561,3 +561,83 @@
 }
 
 .elegido-clear:hover { background: #fee2e2; color: #e05252; }
+
+/* ============================================================
+   RESPONSIVE — Reportes
+   ============================================================ */
+@media (max-width: 768px) {
+  .reportes-page {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .rep-cabecera {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px;
+  }
+
+  .rep-controles {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .rep-buscador {
+    width: 100%;
+  }
+
+  .rep-buscador input {
+    width: 100%;
+  }
+
+  .rep-select-filtro {
+    width: 100%;
+  }
+
+  .btn-nuevo-rep {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* Tabla con scroll horizontal */
+  .rep-tabla-wrap {
+    overflow-x: auto;
+  }
+
+  .rep-tabla {
+    min-width: 600px;
+  }
+
+  .rep-tabla th,
+  .rep-tabla td {
+    padding: 10px 12px;
+  }
+
+  .rep-contenido-preview {
+    max-width: 160px;
+  }
+
+  .modal-caja {
+    width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  #modal-cuerpo {
+    max-height: 60vh;
+  }
+
+  .modal-pie {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .modal-btn-cancelar,
+  .modal-btn-confirmar {
+    flex: 1;
+    text-align: center;
+  }
+}
