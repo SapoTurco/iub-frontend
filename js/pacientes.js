@@ -185,7 +185,8 @@ class PacientesManager {
         <div>
           <label>Documento</label>
           <input type="text" id="pac-documento" value="${p.documento || ""}"
-            placeholder="Ej: 12345678" maxlength="20" />
+            placeholder="Ej: 12345678" maxlength="20"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
         </div>
         <div>
           <label>Diagnóstico</label>
@@ -219,6 +220,12 @@ class PacientesManager {
 
     if (/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/.test(apellido)) {
       errorEl.textContent   = "El apellido solo puede contener letras.";
+      errorEl.style.display = "block";
+      return null;
+    }
+
+    if (/[^0-9]/.test(documento)) {
+      errorEl.textContent   = "El documento solo puede contener números.";
       errorEl.style.display = "block";
       return null;
     }
