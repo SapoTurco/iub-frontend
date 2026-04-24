@@ -174,13 +174,13 @@ class PacientesManager {
           <label>Nombre</label>
           <input type="text" id="pac-nombre" value="${p.nombre || ""}"
             placeholder="Ej: Juan" maxlength="60"
-            oninput="this.value = this.value.replace(/[0-9]/g, '')" />
+            oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/g, '')" />
         </div>
         <div>
           <label>Apellido</label>
           <input type="text" id="pac-apellido" value="${p.apellido || ""}"
             placeholder="Ej: García" maxlength="60"
-            oninput="this.value = this.value.replace(/[0-9]/g, '')" />
+            oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/g, '')" />
         </div>
         <div>
           <label>Documento</label>
@@ -210,15 +210,15 @@ class PacientesManager {
       return null;
     }
 
-    // Validación: nombre y apellido no deben contener números
-    if (/[0-9]/.test(nombre)) {
-      errorEl.textContent   = "El nombre no puede contener números.";
+    // Validación: nombre y apellido solo pueden contener letras y espacios
+    if (/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/.test(nombre)) {
+      errorEl.textContent   = "El nombre solo puede contener letras.";
       errorEl.style.display = "block";
       return null;
     }
 
-    if (/[0-9]/.test(apellido)) {
-      errorEl.textContent   = "El apellido no puede contener números.";
+    if (/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/.test(apellido)) {
+      errorEl.textContent   = "El apellido solo puede contener letras.";
       errorEl.style.display = "block";
       return null;
     }
