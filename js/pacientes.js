@@ -173,12 +173,14 @@ class PacientesManager {
         <div>
           <label>Nombre</label>
           <input type="text" id="pac-nombre" value="${p.nombre || ""}"
-            placeholder="Ej: Juan" maxlength="60" />
+            placeholder="Ej: Juan" maxlength="60"
+            oninput="this.value = this.value.replace(/[0-9]/g, '')" />
         </div>
         <div>
           <label>Apellido</label>
           <input type="text" id="pac-apellido" value="${p.apellido || ""}"
-            placeholder="Ej: García" maxlength="60" />
+            placeholder="Ej: García" maxlength="60"
+            oninput="this.value = this.value.replace(/[0-9]/g, '')" />
         </div>
         <div>
           <label>Documento</label>
@@ -200,12 +202,27 @@ class PacientesManager {
     const documento   = document.getElementById("pac-documento")?.value.trim();
     const diagnostico = document.getElementById("pac-diagnostico")?.value.trim();
 
+    const errorEl = document.getElementById("modal-error");
+
     if (!nombre || !apellido || !documento) {
-      const errorEl = document.getElementById("modal-error");
       errorEl.textContent   = "Nombre, apellido y documento son obligatorios.";
       errorEl.style.display = "block";
       return null;
     }
+
+    // Validación: nombre y apellido no deben contener números
+    if (/[0-9]/.test(nombre)) {
+      errorEl.textContent   = "El nombre no puede contener números.";
+      errorEl.style.display = "block";
+      return null;
+    }
+
+    if (/[0-9]/.test(apellido)) {
+      errorEl.textContent   = "El apellido no puede contener números.";
+      errorEl.style.display = "block";
+      return null;
+    }
+
     return { nombre, apellido, documento, diagnostico };
   }
 
