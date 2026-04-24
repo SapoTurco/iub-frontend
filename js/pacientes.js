@@ -143,7 +143,7 @@ class PacientesManager {
       </div>
 
       ${this.rol === "ADMIN" ? `
-        <div style="display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #eee;">
+        <div class="pac-detalle-acciones">
           <button class="pac-btn-ver"      id="btn-detalle-editar">✏️ Editar</button>
           <button class="pac-btn-eliminar" id="btn-detalle-eliminar">🗑 Eliminar</button>
         </div>` : ""}
