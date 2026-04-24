@@ -190,6 +190,66 @@
 
 
 /* ============================================================
+   BOTONES DE ACCIÓN EN TABLA Y MODAL (Editar / Eliminar)
+   ============================================================ */
+
+/* Botón Editar — borde azul, relleno al hover */
+.pac-btn-ver {
+  padding: 5px 14px;
+  border: 1.5px solid #2c6eb5;
+  border-radius: 20px;
+  background: white;
+  color: #2c6eb5;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+
+.pac-btn-ver:hover {
+  background: #2c6eb5;
+  color: white;
+}
+
+/* Botón Eliminar — borde rojo, relleno al hover */
+.pac-btn-eliminar {
+  padding: 5px 14px;
+  border: 1.5px solid #e05252;
+  border-radius: 20px;
+  background: white;
+  color: #e05252;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+
+.pac-btn-eliminar:hover {
+  background: #e05252;
+  color: white;
+}
+
+/* Bloque de acciones ADMIN dentro del modal de detalle */
+.pac-detalle-acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #eef2f8;
+}
+
+.pac-detalle-acciones .pac-btn-ver,
+.pac-detalle-acciones .pac-btn-eliminar {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+
+/* ============================================================
    MODAL
    ============================================================ */
 .modal-overlay {
@@ -266,6 +326,7 @@
   font-family: inherit;
   transition: border-color 0.2s;
   resize: none;
+  box-sizing: border-box;
 }
 
 #modal-cuerpo input:focus,
@@ -456,6 +517,7 @@
 
   #modal-cuerpo {
     max-height: 60vh;
+    overflow-y: auto;
   }
 
   .modal-pie {
@@ -467,5 +529,10 @@
   .modal-btn-confirmar {
     flex: 1;
     text-align: center;
+  }
+
+  /* Botones admin en modal — apilados en móvil */
+  .pac-detalle-acciones {
+    flex-direction: column;
   }
 }
