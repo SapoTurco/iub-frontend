@@ -9,7 +9,8 @@ class PacientesManager {
     this.camas           = [];
     this.movimientos     = [];
     this.terminoBusqueda = "";
-    this.puedeCrear      = ["ADMIN", "ENFERMERIA"].includes(localStorage.getItem("rol"));
+    this.rol             = localStorage.getItem("rol") || "";
+    this.puedeCrear      = ["ADMIN", "ENFERMERIA"].includes(this.rol);
   }
 
   init() {
@@ -101,6 +102,7 @@ class PacientesManager {
     });
   }
 
+  /* ── Modal detalle con acciones ADMIN ───────────────────── */
   abrirModalDetalle(p) {
     const cama = this._camaDelPaciente(p.id);
     const estadoCama = cama
@@ -139,59 +141,148 @@ class PacientesManager {
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;">${historialHtml}</div>
       </div>
+
+      ${this.rol === "ADMIN" ? `
+        <div style="display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid #eee;">
+          <button class="pac-btn-ver"      id="btn-detalle-editar">✏️ Editar</button>
+          <button class="pac-btn-eliminar" id="btn-detalle-eliminar">🗑 Eliminar</button>
+        </div>` : ""}
     `;
 
+    /* Oculta el botón "Confirmar" genérico — las acciones van por los botones propios */
     document.getElementById("btn-confirmar").style.display = "none";
+
+    if (this.rol === "ADMIN") {
+      document.getElementById("btn-detalle-editar").addEventListener("click", () => {
+        this.cerrarModal();
+        this.abrirModalEditar(p);
+      });
+      document.getElementById("btn-detalle-eliminar").addEventListener("click", () => {
+        this.cerrarModal();
+        this.confirmarEliminar(p);
+      });
+    }
+
     this.abrirModal();
   }
 
+  /* ── Formulario compartido crear / editar ───────────────── */
+  _formPaciente(p = {}) {
+    return `
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label>Nombre</label>
+          <input type="text" id="pac-nombre" value="${p.nombre || ""}"
+            placeholder="Ej: Juan" maxlength="60" />
+        </div>
+        <div>
+          <label>Apellido</label>
+          <input type="text" id="pac-apellido" value="${p.apellido || ""}"
+            placeholder="Ej: García" maxlength="60" />
+        </div>
+        <div>
+          <label>Documento</label>
+          <input type="text" id="pac-documento" value="${p.documento || ""}"
+            placeholder="Ej: 12345678" maxlength="20" />
+        </div>
+        <div>
+          <label>Diagnóstico</label>
+          <textarea id="pac-diagnostico" rows="3"
+            placeholder="Descripción del diagnóstico…" maxlength="300">${p.diagnostico || ""}</textarea>
+        </div>
+        <span class="modal-error" id="modal-error" style="display:none;"></span>
+      </div>`;
+  }
+
+  _leerForm() {
+    const nombre      = document.getElementById("pac-nombre")?.value.trim();
+    const apellido    = document.getElementById("pac-apellido")?.value.trim();
+    const documento   = document.getElementById("pac-documento")?.value.trim();
+    const diagnostico = document.getElementById("pac-diagnostico")?.value.trim();
+
+    if (!nombre || !apellido || !documento) {
+      const errorEl = document.getElementById("modal-error");
+      errorEl.textContent   = "Nombre, apellido y documento son obligatorios.";
+      errorEl.style.display = "block";
+      return null;
+    }
+    return { nombre, apellido, documento, diagnostico };
+  }
+
+  /* ── Nuevo paciente ─────────────────────────────────────── */
   abrirModalNuevoPaciente() {
     document.getElementById("modal-titulo").textContent = "Nuevo paciente";
-    document.getElementById("modal-cuerpo").innerHTML = `
-      <div>
-        <label>Nombre</label>
-        <input type="text" id="pac-nombre" placeholder="Ej: Juan" maxlength="60" />
-      </div>
-      <div>
-        <label>Apellido</label>
-        <input type="text" id="pac-apellido" placeholder="Ej: García" maxlength="60" />
-      </div>
-      <div>
-        <label>Documento</label>
-        <input type="text" id="pac-documento" placeholder="Ej: 12345678" maxlength="20" />
-      </div>
-      <div>
-        <label>Diagnóstico</label>
-        <textarea id="pac-diagnostico" rows="3"
-          placeholder="Descripción del diagnóstico…" maxlength="300"></textarea>
-      </div>
-      <span class="modal-error" id="modal-error"></span>
-    `;
+    document.getElementById("modal-cuerpo").innerHTML  = this._formPaciente();
 
     const btn = document.getElementById("btn-confirmar");
     btn.style.display = "";
     btn.textContent   = "Crear paciente";
     btn.className     = "modal-btn-confirmar";
     btn.onclick = async () => {
-      const nombre      = document.getElementById("pac-nombre").value.trim();
-      const apellido    = document.getElementById("pac-apellido").value.trim();
-      const documento   = document.getElementById("pac-documento").value.trim();
-      const diagnostico = document.getElementById("pac-diagnostico").value.trim();
-      const errorEl     = document.getElementById("modal-error");
-      errorEl.style.display = "none";
-
-      if (!nombre || !apellido || !documento) {
-        errorEl.textContent   = "Nombre, apellido y documento son obligatorios.";
-        errorEl.style.display = "block";
-        return;
-      }
+      const datos = this._leerForm();
+      if (!datos) return;
       try {
-        await apiFetch("/pacientes", "POST", { nombre, apellido, documento, diagnostico });
+        await apiFetch("/pacientes", "POST", datos);
         this.cerrarModal();
         await this.cargarDatos();
       } catch (err) {
+        const errorEl = document.getElementById("modal-error");
         errorEl.textContent   = err.message;
         errorEl.style.display = "block";
+      }
+    };
+
+    this.abrirModal();
+  }
+
+  /* ── Editar paciente (solo ADMIN) ───────────────────────── */
+  abrirModalEditar(p) {
+    document.getElementById("modal-titulo").textContent = "Editar paciente";
+    document.getElementById("modal-cuerpo").innerHTML  = this._formPaciente(p);
+
+    const btn = document.getElementById("btn-confirmar");
+    btn.style.display  = "";
+    btn.style.background = "";
+    btn.textContent    = "Guardar cambios";
+    btn.className      = "modal-btn-confirmar";
+    btn.onclick = async () => {
+      const datos = this._leerForm();
+      if (!datos) return;
+      try {
+        await apiFetch(`/pacientes/${p.id}`, "PUT", datos);
+        this.cerrarModal();
+        await this.cargarDatos();
+      } catch (err) {
+        const errorEl = document.getElementById("modal-error");
+        errorEl.textContent   = err.message;
+        errorEl.style.display = "block";
+      }
+    };
+
+    this.abrirModal();
+  }
+
+  /* ── Eliminar paciente (solo ADMIN) ─────────────────────── */
+  confirmarEliminar(p) {
+    document.getElementById("modal-titulo").textContent = "Eliminar paciente";
+    document.getElementById("modal-cuerpo").innerHTML = `
+      <p style="margin:0 0 8px;">
+        ¿Estás seguro de eliminar a <strong>${p.nombre} ${p.apellido}</strong>?
+      </p>
+      <p style="color:#e05252;font-size:.9rem;">Esta acción no se puede deshacer.</p>
+    `;
+
+    const btn = document.getElementById("btn-confirmar");
+    btn.style.display    = "";
+    btn.style.background = "#e05252";
+    btn.textContent      = "Eliminar";
+    btn.onclick = async () => {
+      try {
+        await apiFetch(`/pacientes/${p.id}`, "DELETE");
+        this.cerrarModal();
+        await this.cargarDatos();
+      } catch (err) {
+        alert("Error: " + err.message);
       }
     };
 
@@ -202,7 +293,11 @@ class PacientesManager {
   cerrarModal() {
     document.getElementById("modal-overlay").classList.add("oculto");
     const btn = document.getElementById("btn-confirmar");
-    if (btn) btn.style.display = "";
+    if (btn) {
+      btn.style.display    = "";
+      btn.style.background = "";
+      btn.textContent      = "Confirmar";
+    }
   }
 }
 
